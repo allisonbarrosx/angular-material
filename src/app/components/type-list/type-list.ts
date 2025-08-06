@@ -15,7 +15,7 @@ import {
   PokemonCompleteInfo,
   PokemonCompleteInfoQuery,
   PokemonCompleteInfoService,
-} from '../../../state';
+} from '../../state';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Location } from '@angular/common';

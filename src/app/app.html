@@ -65,7 +65,7 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <div class="fab-container">
+  <div class="fab-container" [class.show]="sideNavOpened">
     <button
       matFab
       aria-label="Close side nav"

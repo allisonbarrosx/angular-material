@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TypeList } from './type-list';
+import { TypeList } from './type-list/type-list';
 
 describe('TypeList', () => {
   let component: TypeList;
@@ -8,9 +8,8 @@ describe('TypeList', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TypeList]
-    })
-    .compileComponents();
+      imports: [TypeList],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TypeList);
     component = fixture.componentInstance;
