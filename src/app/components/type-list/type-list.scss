@@ -1,3 +1,8 @@
 .spinner {
   --bs-bg-opacity: 0.5;
 }
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: var(--mat-sys-on-primary);
+  cursor: pointer;
+}

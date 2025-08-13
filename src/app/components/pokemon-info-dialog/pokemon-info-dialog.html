@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Pokémon Info</h2>
+<mat-dialog-content>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 row">
+        <div class="mb-2">
+          <mat-label class="fw-semibold">ID: </mat-label>
+          <span class="text-capitalize">{{ pokemon().id }}</span>
+        </div>
+        <div class="mb-2">
+          <mat-label class="fw-semibold">Name: </mat-label>
+          <span class="text-capitalize">{{ pokemon().name }}</span>
+        </div>
+        <div class="mb-2">
+          <mat-label class="fw-semibold">Height: </mat-label>
+          <span class="text-capitalize">{{ pokemon().height }}</span>
+        </div>
+        <div class="mb-2">
+          <mat-label class="fw-semibold">Species: </mat-label>
+          <span class="text-capitalize">{{ pokemon().species.name }}</span>
+        </div>
+        <div class="mb-2">
+          <mat-label class="fw-semibold">Weight: </mat-label>
+          <span class="text-capitalize">{{ pokemon().weight }}</span>
+        </div>
+        <div class="mb-4">
+          <mat-label class="fw-semibold">Type: </mat-label>
+          <span class="text-capitalize">{{ pokemon().type }}</span>
+        </div>
+
+        <h3 class="fs-5">Abilities</h3>
+        @for (ability of pokemon().abilities; track ability.ability.name) {
+        <p class="text-capitalize mb-1">- {{ ability.ability.name }}</p>
+        }
+      </div>
+      <div class="col-12 col-sm-6">
+        <img
+          [src]="pokemon().sprites.front_default"
+          [alt]="pokemon().name"
+          width="250"
+          height="auto"
+        />
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close (click)="closeDialog()">No Thanks</button>
+</mat-dialog-actions>

@@ -19,6 +19,8 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { PokemonInfoDialog } from '../pokemon-info-dialog/pokemon-info-dialog';
 
 @Component({
   selector: 'app-type-list',
@@ -41,6 +43,7 @@ export class TypeList implements AfterViewInit {
   private _service = inject(PokemonCompleteInfoService);
   private _query = inject(PokemonCompleteInfoQuery);
   private _location = inject(Location);
+  readonly dialog = inject(MatDialog);
 
   pokemonType = signal<string>('');
   pokemonList = new MatTableDataSource<PokemonCompleteInfo>([]);
@@ -73,5 +76,11 @@ export class TypeList implements AfterViewInit {
 
   goBack() {
     this._location.back();
+  }
+
+  onClickRow(row: PokemonCompleteInfo) {
+    this.dialog.open(PokemonInfoDialog, {
+      data: row,
+    });
   }
 }
