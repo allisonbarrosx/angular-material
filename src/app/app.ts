@@ -12,6 +12,9 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { PokemonType } from './models/pokemon.model';
 import { PokemonTypesQuery, PokemonTypesService } from './state';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PokemonService } from './state/pokemon.service';
 
 const materialImports = [
   MatToolbar,
@@ -20,6 +23,7 @@ const materialImports = [
   MatSidenavModule,
   MatListModule,
   MatButtonModule,
+  MatProgressSpinnerModule,
 ];
 
 @Component({
@@ -33,8 +37,19 @@ export class App implements OnDestroy {
   protected readonly isMobile = signal(true);
   pokemonTypeList = signal<PokemonType[] | undefined>([]);
   sideNavOpened?: boolean;
+  progression = signal<number>(100);
+
+  techStackList = [
+    'Angular',
+    'Angular Material',
+    'Datorama Akita',
+    'RxJS',
+    'Bootstrap',
+    'Typescript',
+  ];
 
   private _service = inject(PokemonTypesService);
+  private _commonSrv = inject(PokemonService);
   private _query = inject(PokemonTypesQuery);
   private readonly _mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;
@@ -55,6 +70,10 @@ export class App implements OnDestroy {
         this.pokemonTypeList.set(this._query.pokemonTypes());
       }
     });
+
+    this._commonSrv.loadingProgression$.subscribe((p) =>
+      this.progression.set(p)
+    );
   }
 
   ngOnDestroy(): void {

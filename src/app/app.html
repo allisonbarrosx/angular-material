@@ -1,79 +1,143 @@
-<div class="main-content">
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav
-      #snav
-      [mode]="isMobile() ? 'over' : 'side'"
-      [fixedInViewport]="isMobile()"
-      [(opened)]="sideNavOpened"
-    >
-      <mat-nav-list class="p-1 mb-4">
-        <a
-          mat-list-item
-          matListItemTitle
-          class="text-capitalize"
-          routerLink="/"
-          (click)="isMobile() && snav.close()"
-        >
-          <mat-icon fontIcon="home" matListItemIcon></mat-icon>Home
-        </a>
-        @for (pokemonType of pokemonTypeList(); track pokemonType.name) {
-        <a
-          mat-list-item
-          matListItemTitle
-          class="text-capitalize"
-          [routerLink]="`type/${pokemonType.name}`"
-          (click)="isMobile() && snav.close()"
-          >{{ pokemonType.name }}</a
-        >
-        }
-      </mat-nav-list>
-    </mat-sidenav>
+<div class="container">
+  <div class="main-content mb-8">
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav
+        #snav
+        [mode]="isMobile() ? 'over' : 'side'"
+        [fixedInViewport]="isMobile()"
+        [(opened)]="sideNavOpened"
+      >
+        <mat-nav-list class="p-1 mb-4">
+          <a
+            mat-list-item
+            matListItemTitle
+            class="text-capitalize"
+            routerLink="/"
+            (click)="isMobile() && snav.close()"
+          >
+            <mat-icon fontIcon="home" matListItemIcon></mat-icon>Home
+          </a>
+          @for (pokemonType of pokemonTypeList(); track pokemonType.name) {
+          <a
+            mat-list-item
+            matListItemTitle
+            class="text-capitalize"
+            [routerLink]="`type/${pokemonType.name}`"
+            (click)="isMobile() && snav.close()"
+            >{{ pokemonType.name }}</a
+          >
+          }
+        </mat-nav-list>
+      </mat-sidenav>
 
-    <mat-sidenav-content class="py-2">
-      <mat-toolbar>
-        <button
-          matIconButton
-          class="icon"
-          aria-label="icon-button with menu icon"
-          (click)="snav.toggle()"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
-        <div class="ms-2">
-          <h1>Pokémon</h1>
-          <span class="fs-6">Gotta Catch 'Em All!</span>
+      <mat-sidenav-content class="py-2">
+        <mat-toolbar>
+          <button
+            matIconButton
+            class="icon"
+            aria-label="icon-button with menu icon"
+            (click)="snav.toggle()"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+          <div class="ms-2">
+            <h1>Pokémon</h1>
+            <span class="fs-6">Gotta Catch 'Em All!</span>
+          </div>
+          <span class="spacer"></span>
+          <button
+            matIconButton
+            class="icon favorite-icon"
+            aria-label="icon-button with home icon"
+            routerLink="/"
+          >
+            <mat-icon>home</mat-icon>
+          </button>
+          <button
+            matIconButton
+            class="icon"
+            aria-label="icon-button with share icon"
+          >
+            <mat-icon>share</mat-icon>
+          </button>
+        </mat-toolbar>
+        <div class="inner-content">
+          <router-outlet />
         </div>
-        <span class="spacer"></span>
-        <button
-          matIconButton
-          class="icon favorite-icon"
-          aria-label="icon-button with home icon"
-          routerLink="/"
-        >
-          <mat-icon>home</mat-icon>
-        </button>
-        <button
-          matIconButton
-          class="icon"
-          aria-label="icon-button with share icon"
-        >
-          <mat-icon>share</mat-icon>
-        </button>
-      </mat-toolbar>
-      <div class="inner-content">
-        <router-outlet />
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <div class="fab-container" [class.show]="sideNavOpened">
-    <button
-      matFab
-      aria-label="Close side nav"
-      [class.bounce-out-down]="!sideNavOpened"
-      [class.bounce-in-up]="sideNavOpened"
-      (click)="snav.close()"
-    >
-      <mat-icon>arrow_back</mat-icon>
-    </button>
+        <footer>
+          <div class="row justify-content-center mx-0 my-0">
+            <div class="col-8">
+              <div class="row">
+                <div class="col-6 flex-grow-1">
+                  <h3>Powered by</h3>
+                  <mat-list>
+                    @for (tech of techStackList; track tech) {
+                    <mat-list-item>{{ tech }}</mat-list-item>
+                    }
+                  </mat-list>
+                </div>
+                <div class="col-6 flex-grow-1">
+                  <h3>Contact Info</h3>
+                  <mat-list-item matListItemTitle>Allison Barros</mat-list-item>
+                  <mat-list>
+                    <a
+                      class="cursor-pointer"
+                      role="button"
+                      mat-list-item
+                      href="https://www.linkedin.com/in/allison-barros/"
+                      target="_blank"
+                    >
+                      <mat-icon fontIcon="link" matListItemIcon></mat-icon
+                      >LinkedIn
+                    </a>
+                    <a
+                      class="cursor-pointer"
+                      role="button"
+                      mat-list-item
+                      href="https://github.com/allisonbarrosx"
+                      target="_blank"
+                    >
+                      <mat-icon fontIcon="link" matListItemIcon></mat-icon
+                      >Github
+                    </a>
+                    <a
+                      class="cursor-pointer"
+                      role="button"
+                      mat-list-item
+                      href="mailto:barros.allison@gmail.com"
+                    >
+                      <mat-icon fontIcon="email" matListItemIcon></mat-icon
+                      >Email
+                    </a>
+                  </mat-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </div>
+</div>
+@if (progression() !== 100) {
+<div
+  class="position-absolute top-0 start-0 bg-black spinner w-100 h-100 z-3 overflow-hidden"
+  style="--bs-bg-opacity: 0.6"
+>
+  <div class="d-flex align-items-center justify-content-center vh-100">
+    <mat-progress-spinner mode="indeterminate" [value]="progression()">
+    </mat-progress-spinner>
+  </div>
+</div>
+}
+<div class="fab-container animated-button" [class.show]="sideNavOpened">
+  <button
+    matFab
+    aria-label="Close side nav"
+    [class.bounce-out-down]="!sideNavOpened"
+    [class.bounce-in-up]="sideNavOpened"
+    (click)="snav.close()"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 </div>

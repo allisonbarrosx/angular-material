@@ -1,13 +1,3 @@
-@if (progression != 100) {
-<div
-  class="position-absolute top-0 start-0 bg-black spinner w-100 h-100 z-3 overflow-hidden"
->
-  <div class="d-flex align-items-center justify-content-center vh-100">
-    <mat-progress-spinner mode="indeterminate" [value]="progression">
-    </mat-progress-spinner>
-  </div>
-</div>
-}
 <button matButton="tonal" (click)="goBack()">
   <mat-icon>chevron_left</mat-icon>back
 </button>

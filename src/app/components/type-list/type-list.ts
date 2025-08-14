@@ -21,6 +21,7 @@ import { MatButton } from '@angular/material/button';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PokemonInfoDialog } from '../pokemon-info-dialog/pokemon-info-dialog';
+import { PokemonService } from '../../state/pokemon.service';
 
 @Component({
   selector: 'app-type-list',
@@ -41,6 +42,7 @@ export class TypeList implements AfterViewInit {
 
   private activatedRoute = inject(ActivatedRoute);
   private _service = inject(PokemonCompleteInfoService);
+  private _commonSrv = inject(PokemonService);
   private _query = inject(PokemonCompleteInfoQuery);
   private _location = inject(Location);
   readonly dialog = inject(MatDialog);
@@ -48,7 +50,6 @@ export class TypeList implements AfterViewInit {
   pokemonType = signal<string>('');
   pokemonList = new MatTableDataSource<PokemonCompleteInfo>([]);
   displayedColumns: string[] = ['id', 'name', 'sprites'];
-  progression = 0;
 
   constructor() {
     this.activatedRoute.params
@@ -56,16 +57,16 @@ export class TypeList implements AfterViewInit {
         map((params) => params['name']),
         distinctUntilChanged(),
         filter((name) => !!name),
-        tap(() => (this.progression = 0)),
+        tap(() => this._commonSrv.loadingProgression$.next(0)),
         switchMap((name) => this._service.getPokemonsByTypeWithCache(name))
       )
       .subscribe((res) => {
         this.pokemonList.data = res;
-        this.progression = 100;
+        this._commonSrv.loadingProgression$.next(100);
       });
 
     this._query.selectLoading().subscribe((loading) => {
-      this.progression = loading ? 0 : 100;
+      this._commonSrv.loadingProgression$.next(loading ? 0 : 100);
     });
   }
 
